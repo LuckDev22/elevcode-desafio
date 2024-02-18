@@ -1,14 +1,13 @@
-import express from "express";
-import dotenv from "dotenv";
+import express, { json } from "express";
 import { moviesRoutes } from "./routes/routes";
-
-dotenv.config();
+import { handleErrors } from "./error";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+
+app.use(json());
 
 app.use("/movies", moviesRoutes);
 
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-});
+app.use(handleErrors);
+
+export default app;

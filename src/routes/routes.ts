@@ -9,6 +9,7 @@ token.post("", verifyToken);
 
 moviesRoutes.get("", listMoviesController);
 
-moviesRoutes.patch("");
+// moviesRoutes.get('/estoucomsorte', getRandomMovie);
 
-moviesRoutes.delete("");
+// moviesRoutes.post('/favorites', saveMovie);
+

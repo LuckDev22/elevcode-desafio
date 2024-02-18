@@ -1,4 +1,4 @@
-import axios from 'axios';
+const axios = require("axios");
 import dotenv from "dotenv";
 import { Request, Response } from "express";
 
@@ -6,7 +6,7 @@ dotenv.config();
 
 const OMDB_API_KEY = process.env.OMDB_API_KEY || "";
 
-export const getMovies = async (req: Request, res: Response) => {
+export async function getMovies(req: Request, res: Response) {
     try {
         const title = req.query.title as string;
 
@@ -20,10 +20,9 @@ export const getMovies = async (req: Request, res: Response) => {
         const apiResponse = await axios.get(
             `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}`
         );
-        const movies = apiResponse.data.Search || [];
-            console.log(apiResponse)
-            
-        res.json({ sucesso: true, movies });
+        const filmes = apiResponse.data.Search || [];
+
+        res.json({ sucesso: true, filmes });
     } catch (error) {
         console.error("Erro ao pesquisar filmes por título:", error);
         res.status(500).json({
