@@ -1,5 +1,4 @@
 import Login, { ILogin } from "../models/login";
-import bcrypt from "bcrypt";
 
 export const createUserService = async (userData: ILogin): Promise<ILogin> => {
     try {
@@ -9,17 +8,13 @@ export const createUserService = async (userData: ILogin): Promise<ILogin> => {
             throw new Error("E-mail já registrado");
         }
 
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(userData.password, saltRounds);
-
         const newUser = await Login.create({
             email: userData.email,
-            password: hashedPassword,
+            password: userData.password,
         });
 
         return newUser;
     } catch (error) {
-        console.error("Erro ao criar usuário:", error);
         throw new Error("Erro ao criar usuário");
     }
 };

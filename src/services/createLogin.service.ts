@@ -1,52 +1,60 @@
-import jwt from "jsonwebtoken";
-import "dotenv/config";
-import { TLoginReq } from "../interfaces/login.interfaces";
 import Login from "../models/login";
-import bcrypt from "bcrypt";
+import { TLoginReq } from "../interfaces/login.interfaces";
+import jwt from "jsonwebtoken";
+import { compare } from "bcrypt";
+import dotenv from "dotenv";
+dotenv.config();
+import "dotenv/config";
+import { AppError } from "../error";
 
 export interface IloginResponse {
     token: string;
-    client: any;
+    user: any;
 }
 
 export const createLoginService = async (
     loginData: TLoginReq
 ): Promise<IloginResponse> => {
     try {
-        const client = await Login.findOne({ email: loginData.email });
+        const user = await Login.findOne({ email: loginData.email });
 
-        if (!client) {
-            throw new Error("Invalid credentials");
+        console.log("Usuário encontrado:", user);
+        
+        if (!user) {
+            throw new AppError("Invalid credentials", 401);
         }
+        console.log("Senha fornecida:", loginData.password);
+        console.log("Senha no banco de dados:", user.password);
 
-        const validPassword = await bcrypt.compare(
+        const validPassword = await compare(
             loginData.password,
-            client.password
+            user.password
         );
 
+        console.log("Senha válida:", validPassword);
+
         if (!validPassword) {
-            throw new Error("Invalid credentials");
+            throw new AppError("Invalid credentials", 401);
         }
 
         const token = jwt.sign(
             {
-                id: client._id,
+                id: user._id,
             },
-            process.env.SECRET_KEY!,
+            process.env.JWT_SECRET!,
             {
                 expiresIn: "1d",
-                subject: client._id.toString(),
+                subject: user._id.toString(),
             }
         );
 
         const loginResponse: IloginResponse = {
             token,
-            client,
+            user,
         };
-
         return loginResponse;
     } catch (error) {
-        console.error(error);
-        throw new Error("Erro ao criar o login");
+        console.error("Erro ao autenticar:", error);
+        throw new AppError("Erro ao autenticar", 500);
     }
 };
