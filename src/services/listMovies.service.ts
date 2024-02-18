@@ -20,10 +20,10 @@ export const getMovies = async (req: Request, res: Response) => {
         const apiResponse = await axios.get(
             `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}`
         );
-        const movies = apiResponse.data.Search || [];
-            console.log(apiResponse)
-            
-        res.json({ sucesso: true, movies });
+        const movies = apiResponse.data || [];
+            console.log(apiResponse.data)
+
+        res.json({ movies });
     } catch (error) {
         console.error("Erro ao pesquisar filmes por título:", error);
         res.status(500).json({
