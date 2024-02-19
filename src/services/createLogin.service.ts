@@ -7,7 +7,6 @@ import "dotenv/config";
 
 export interface IloginResponse {
     token: string;
-    user: any;
 }
 
 export const createLoginService = async (
@@ -45,7 +44,6 @@ export const createLoginService = async (
 
         const loginResponse: IloginResponse = {
             token,
-            user,
         };
         return loginResponse;
     } catch (error) {

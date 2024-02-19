@@ -1,15 +1,13 @@
 import { Router } from "express";
-import { verifyToken } from "../middleware/authMiddleware";
 import { listMoviesController } from "../controllers/listMovies.constroller";
+import { getRandomMovieController } from "../controllers/listRandomMovie.constroller";
 
 export const token: Router = Router();
 export const moviesRoutes: Router = Router();
 
-token.post("", verifyToken);
 
 moviesRoutes.get("", listMoviesController);
 
-// moviesRoutes.get('/estoucomsorte', getRandomMovie);
-
+moviesRoutes.get('/estoucomsorte',getRandomMovieController)
 // moviesRoutes.post('/favorites', saveMovie);
 
