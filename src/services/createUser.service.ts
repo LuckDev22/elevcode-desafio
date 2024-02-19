@@ -1,3 +1,4 @@
+import { AppError } from "../error";
 import Login, { ILogin } from "../models/login";
 
 export const createUserService = async (userData: ILogin): Promise<ILogin> => {
@@ -5,7 +6,7 @@ export const createUserService = async (userData: ILogin): Promise<ILogin> => {
         const existingUser = await Login.findOne({ email: userData.email });
 
         if (existingUser) {
-            throw new Error("E-mail já registrado");
+            throw new AppError("E-mail já registrado", 401);
         }
 
         const newUser = await Login.create({
@@ -15,6 +16,6 @@ export const createUserService = async (userData: ILogin): Promise<ILogin> => {
 
         return newUser;
     } catch (error) {
-        throw new Error("Erro ao criar usuário");
+        throw new AppError("Erro ao criar usuário", 401);
     }
 };

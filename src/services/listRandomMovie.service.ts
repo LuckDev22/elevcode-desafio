@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import dotenv from "dotenv";
 import axios from "axios";
+import { AppError } from "../error";
 
 dotenv.config();
 
@@ -10,7 +11,7 @@ export const getRandomMovie = async (req: Request, resp: Response) => {
     try {
         const randomImdbId =
             "tt" + (Math.floor(Math.random() * 1000000) + 1000000);
-        console.log(randomImdbId);
+
         const response = await axios.get(
             `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${randomImdbId}`
         );
@@ -21,6 +22,6 @@ export const getRandomMovie = async (req: Request, resp: Response) => {
             getRandomMovie(req, resp);
         }
     } catch (error) {
-        throw new Error("Erro ao buscar filme aleatório");
+        throw new AppError("Erro ao buscar filme aleatório", 401);
     }
 };
