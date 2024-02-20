@@ -1,4 +1,4 @@
-import Login from "../models/login";
+import Login from "../models/login.model";
 import jwt from "jsonwebtoken";
 import { compare } from "bcrypt";
 import { TLoginReq } from "../interfaces/login.interfaces";

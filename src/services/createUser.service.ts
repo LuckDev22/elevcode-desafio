@@ -1,5 +1,6 @@
 import { AppError } from "../error";
-import Login, { ILogin } from "../models/login";
+import Login, { ILogin } from "../models/login.model";
+import bcrypt from "bcrypt";
 
 export const createUserService = async (userData: ILogin): Promise<ILogin> => {
     try {
@@ -8,6 +9,10 @@ export const createUserService = async (userData: ILogin): Promise<ILogin> => {
         if (existingUser) {
             throw new AppError("E-mail já registrado", 401);
         }
+
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(userData.password, saltRounds);
+        userData.password = hashedPassword;
 
         const newUser = await Login.create({
             email: userData.email,

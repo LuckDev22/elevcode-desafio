@@ -8,9 +8,10 @@ const app: Application = express();
 
 app.use(json());
 
-app.use("/movies", moviesRoutes);
-app.use("/login", loginRoutes);
 app.use('/users', userRoutes);
+app.use("/movies", moviesRoutes);
+
+app.use("/login", loginRoutes);
 
 app.use(handleErrors);
 

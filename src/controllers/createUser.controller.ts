@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { createUserService } from "../services/createUser.service";
-import { ILogin } from "../models/login";
+import { ILogin } from "../models/login.model";
 
 export const createUserController = async (
     req: Request,
