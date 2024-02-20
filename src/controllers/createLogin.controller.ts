@@ -4,10 +4,10 @@ import { TLoginReq } from "../interfaces/login.interfaces";
 
 export const createLoginController = async (
     req: Request,
-    res: Response
+    resp: Response
 ): Promise<Response> => {
     const loginData: TLoginReq = req.body;
     const loginResponse = await createLoginService(loginData);
     console.log(loginData);
-    return res.json(loginResponse);
+    return resp.json(loginResponse);
 };

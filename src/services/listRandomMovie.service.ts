@@ -15,7 +15,7 @@ export const getRandomMovie = async (req: Request, resp: Response) => {
         const response = await axios.get(
             `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${randomImdbId}`
         );
-        console.log(response.data);
+        // console.log(response.data);
         if (response.data.Response == "True") {
             return response.data;
         } else {

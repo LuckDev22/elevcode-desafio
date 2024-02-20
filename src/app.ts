@@ -1,5 +1,5 @@
 import express, { Application, json } from "express";
-import { moviesRoutes} from "./routes/routes";
+import { moviesRoutes} from "./routes/movies.routes";
 import { handleErrors } from "./error";
 import { loginRoutes } from "./routes/login.routes";
 import { userRoutes } from "./routes/createUser.routes";

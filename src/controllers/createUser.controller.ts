@@ -4,10 +4,10 @@ import { ILogin } from "../models/login";
 
 export const createUserController = async (
     req: Request,
-    res: Response,
+    resp: Response,
     next: NextFunction
 ): Promise<Response> => {
     const userData = req.body;
     const newUser: ILogin = await createUserService(userData);
-    return res.status(201).json({ user: newUser });
+    return resp.status(201).json({ user: newUser });
 };
