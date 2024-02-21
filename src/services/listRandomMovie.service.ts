@@ -7,7 +7,7 @@ dotenv.config();
 
 const OMDB_API_KEY = process.env.OMDB_API_KEY || "";
 
-export const getRandomMovie = async (req: Request, resp: Response) => {
+export const getRandomMovieService = async (req: Request, resp: Response) => {
     try {
         const randomImdbId =
             "tt" + (Math.floor(Math.random() * 1000000) + 1000000);
@@ -19,7 +19,7 @@ export const getRandomMovie = async (req: Request, resp: Response) => {
         if (response.data.Response == "True") {
             return response.data;
         } else {
-            getRandomMovie(req, resp);
+            getRandomMovieService(req, resp);
         }
     } catch (error) {
         throw new AppError("Erro ao buscar filme aleatório", 401);

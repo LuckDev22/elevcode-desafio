@@ -6,7 +6,7 @@ dotenv.config();
 
 const OMDB_API_KEY = process.env.OMDB_API_KEY || "";
 
-export const getMovies = async (req: Request, res: Response) => {
+export const getMoviesService = async (req: Request, res: Response) => {
     try {
         const title = req.query.title as string;
 

@@ -1,0 +1,88 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Filmes",
+    "description": "API para gerenciar filmes e favoritos",
+    "contact": {
+      "email": "lukki12@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3003/",
+      "description": "API de Produção fase inicial"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "summary": "Cadastro de usuário",
+        "description": "Rota responsável por cadastrar um novo usuário",
+        "tags": ["Usuários"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserData"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "exemplo@email.com",
+                    "password": "senha123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "E-mail já registrado ou erro ao criar usuário"
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "email": "exemplo@email.com",
+                  "password": "hashedPasswordHere"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserData": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

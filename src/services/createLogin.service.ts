@@ -25,8 +25,6 @@ export const createLoginService = async (
 
         const validPassword = await compare(loginData.password, user.password);
 
-        console.log("Senha válida:", validPassword);
-
         if (!validPassword) {
             throw new AppError("Invalid credentials", 401);
         }
@@ -34,6 +32,7 @@ export const createLoginService = async (
         const token = jwt.sign(
             {
                 id: user._id,
+                email: user.email
             },
             process.env.JWT_SECRET!,
             {
@@ -47,7 +46,6 @@ export const createLoginService = async (
         };
         return loginResponse;
     } catch (error) {
-        console.error("Erro ao autenticar:", error);
         throw new AppError("Erro ao autenticar", 500);
     }
 };
