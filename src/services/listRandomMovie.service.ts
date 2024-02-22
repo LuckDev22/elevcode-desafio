@@ -5,7 +5,7 @@ import { AppError } from "../error";
 
 dotenv.config();
 
-const OMDB_API_KEY = process.env.OMDB_API_KEY || "";
+const OMDB_API_KEY = process.env.OMDB_API_KEY ?? "";
 
 export const getRandomMovieService = async (req: Request, resp: Response) => {
     try {

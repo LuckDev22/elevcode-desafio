@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { addFavoriteMovieService } from "../services/favoriteMovies.service";
-import { AppError } from "../error";
 
 export const addFavoriteMovieController = async (
     req: Request,

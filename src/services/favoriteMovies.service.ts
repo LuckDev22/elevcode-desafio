@@ -8,7 +8,7 @@ import Login from "../models/login.model";
 
 dotenv.config();
 
-const OMDB_API_KEY = process.env.OMDB_API_KEY || "";
+const OMDB_API_KEY = process.env.OMDB_API_KEY ?? "";
 
 export const addFavoriteMovieService = async (
     imdbID: string,
