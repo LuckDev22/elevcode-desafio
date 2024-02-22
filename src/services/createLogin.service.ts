@@ -1,7 +1,6 @@
-import Login from "../models/login.model";
+import Login, { ILogin } from "../models/login.model";
 import jwt from "jsonwebtoken";
 import { compare } from "bcrypt";
-import { TLoginReq } from "../interfaces/login.interfaces";
 import { AppError } from "../error";
 import "dotenv/config";
 
@@ -10,7 +9,7 @@ export interface IloginResponse {
 }
 
 export const createLoginService = async (
-    loginData: TLoginReq
+    loginData: ILogin
 ): Promise<IloginResponse> => {
     try {
         const user = await Login.findOne({ email: loginData.email });
@@ -32,7 +31,7 @@ export const createLoginService = async (
         const token = jwt.sign(
             {
                 id: user._id,
-                email: user.email
+                email: user.email,
             },
             process.env.JWT_SECRET!,
             {

@@ -11,10 +11,10 @@ const app: Application = express();
 app.use(json());
 
 app.use("/users", userRoutes);
-app.use("/movies", moviesRoutes);
-
 app.use("/login", loginRoutes);
+app.use("/movies", moviesRoutes);
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 app.use(handleErrors);
 
 export default app;
