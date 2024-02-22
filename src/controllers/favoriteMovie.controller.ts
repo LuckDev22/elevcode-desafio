@@ -8,10 +8,16 @@ export const addFavoriteMovieController = async (
 ) => {
     const { imdbID } = req.body;
 
-    await addFavoriteMovieService(imdbID, req, resp);
+    const { savedMovie, user }: any = await addFavoriteMovieService(
+        imdbID,
+        req,
+        resp
+    );
+
     return resp.status(201).json({
         sucesso: true,
-        movie: imdbID,
         mensagem: "Filme adicionado aos favoritos com sucesso",
+        movie: savedMovie,
+        user,
     });
 };

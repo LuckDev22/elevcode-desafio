@@ -7,7 +7,7 @@ export interface IMovie extends Document {
     year: string;
     type: string;
     poster: string;
-    createdBy: Schema.Types.ObjectId | ILogin;
+    createdBy: string | ILogin;
 }
 
 const movieSchema = new mongoose.Schema({
